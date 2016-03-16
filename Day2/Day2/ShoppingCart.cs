@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Day2
 {
@@ -6,14 +7,24 @@ namespace Day2
     {
         public int CalculatePrice(ICollection<HarryPotter> books)
         {
-            var result = 0;
+            var result = 0.0;
 
             foreach (var book in books)
             {
                 result = result + book.Price;
             }
 
-            return result;
+            if (books.Count == 2)
+            {
+                var cart = books.ToList();
+
+                if (cart[0].Episode != cart[1].Episode)
+                {
+                    result = result * 0.95;
+                }
+            }
+
+            return (int)result;
         }
     }
 }
