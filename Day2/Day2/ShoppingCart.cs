@@ -9,15 +9,36 @@ namespace Day2
         {
             var result = 0.0;
 
-            foreach (var book in books)
+            while (books.Count > 0)
             {
-                result = result + book.Price;
+                result = result + this.GetSubPrice(books);
             }
 
-            var distinctBook = books.Distinct().Count();
-
-            return (int)(result * this.getDiscount(distinctBook));
+            return (int)result;
         }
+
+        private double GetSubPrice(ICollection<HarryPotter> books)
+        {
+            var _books = books.ToList();
+            var distinct = _books.Select(x => x.Episode).Distinct().ToList();
+            var disCount = this.getDiscount(distinct.Count);
+
+            var result = 0.0;
+
+            for (int i = books.Count - 1; i >= 0; i--)
+            {
+                if (distinct.Any(x => x == _books[i].Episode) == true)
+                {
+                    result = result + _books[i].Price;
+
+                    distinct.Remove(_books[i].Episode);
+                    books.Remove(_books[i]);
+                }
+            }
+
+            return result * disCount;
+        }
+
         private double getDiscount(int distinctBook)
         {
             switch (distinctBook)
