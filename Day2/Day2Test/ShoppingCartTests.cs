@@ -48,5 +48,28 @@ namespace Day2.Tests
             // atual
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void CalculateFeeTest_第一集買1本_第二集買1本_第三集買1本_第四集買0本_第五集買0本_售價為270元()
+        {
+            // arrange
+            var target = new ShoppingCart();
+
+            var books =
+                new List<HarryPotter>()
+                { 
+                    new HarryPotter() { Episode = 1 },
+                    new HarryPotter() { Episode = 2 },
+                    new HarryPotter() { Episode = 3 }
+                };
+
+            var expected = 270;
+
+            // act
+            var actual = target.CalculatePrice(books);
+
+            // atual
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
