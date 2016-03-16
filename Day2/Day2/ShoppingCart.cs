@@ -14,17 +14,35 @@ namespace Day2
                 result = result + book.Price;
             }
 
-            if (books.Count == 2)
+            var distinctBook = books.Distinct().Count();
+
+            return (int)(result * this.getDiscount(distinctBook));
+        }
+        private double getDiscount(int distinctBook)
+        {
+            switch (distinctBook)
             {
-                var cart = books.ToList();
+                case 0:
+                    return 0;
 
-                if (cart[0].Episode != cart[1].Episode)
-                {
-                    result = result * 0.95;
-                }
+                case 1:
+                    return 1;
+
+                case 2:
+                    return 0.95;
+
+                case 3:
+                    return 0.9;
+
+                case 4:
+                    return 0.8;
+
+                case 5:
+                    return 0.75;
+
+                default:
+                    return 0;
             }
-
-            return (int)result;
         }
     }
 }
